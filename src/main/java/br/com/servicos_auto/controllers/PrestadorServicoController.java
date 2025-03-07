@@ -17,6 +17,7 @@ import br.com.servicos_auto.models.PrestadorServico;
 import br.com.servicos_auto.models.PrestadorServicoDTO;
 import br.com.servicos_auto.services.ImageService;
 import br.com.servicos_auto.services.PrestadorServicoService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,6 +51,7 @@ public class PrestadorServicoController {
         return ResponseEntity.ok(prestador);
     }
 
+    @Operation(summary = "Cria um novo prestador de serviço", description = "Endpoint para cadastrar um novo prestador de serviço com nome, email, CPF/CNPJ e senha. O prestador deve ter um CPF ou CNPJ, mas não ambos")
     @PostMapping
     public ResponseEntity<PrestadorServicoDTO> create(@Valid @RequestBody PrestadorServico prestadorServico) {
         PrestadorServicoDTO savedPrestadorServico = prestadorServicoService.create(prestadorServico);
@@ -58,7 +60,7 @@ public class PrestadorServicoController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<PrestadorServicoDTO> update(@PathVariable Long id,
-             @RequestBody PrestadorServico prestadorServico) {
+            @RequestBody PrestadorServico prestadorServico) {
 
         PrestadorServicoDTO updatedPrestador = prestadorServicoService.update(id, prestadorServico);
         return ResponseEntity.ok(updatedPrestador);

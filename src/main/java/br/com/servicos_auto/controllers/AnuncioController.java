@@ -23,6 +23,9 @@ import br.com.servicos_auto.models.Image;
 import br.com.servicos_auto.models.ImageDTO;
 import br.com.servicos_auto.services.AnuncioService;
 import br.com.servicos_auto.services.ImageService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
@@ -47,8 +50,11 @@ public class AnuncioController {
         return ResponseEntity.ok(anuncio);
     }
 
+    @Operation(summary = "Cria um novo anúncio", description = "Endpoint para cadastrar um novo anúncio associado a um prestador de serviço.", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/{prestadorId}")
-    public ResponseEntity<AnuncioDTO> create(@PathVariable Long prestadorId, @Valid @RequestBody Anuncio anuncio) {
+    public ResponseEntity<AnuncioDTO> create(
+            @Parameter(description = "ID do prestador de serviço", required = true) @PathVariable Long prestadorId,
+            @Valid @RequestBody Anuncio anuncio) {
         AnuncioDTO savedAnuncio = anuncioService.create(anuncio, prestadorId);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAnuncio);
     }

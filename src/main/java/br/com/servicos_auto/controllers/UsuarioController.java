@@ -23,7 +23,6 @@ import br.com.servicos_auto.models.Usuario;
 import br.com.servicos_auto.models.UsuarioDTO;
 import br.com.servicos_auto.services.ImageService;
 import br.com.servicos_auto.services.UsuarioService;
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 @RestController
@@ -37,7 +36,6 @@ public class UsuarioController {
     private ImageService imageService;
 
     // Endpoint para listar todos os usuários
-    @Operation(summary = "Lista todos os usuarios")
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> findAll() {
         List<UsuarioDTO> usuarios = usuarioService.findAll();
@@ -45,7 +43,6 @@ public class UsuarioController {
     }
 
     // Endpoint para buscar um usuário por ID
-    @Operation(summary = "Busca usuario por ID")
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> findById(@PathVariable Long id) {
         UsuarioDTO usuario = usuarioService.findById(id);
@@ -53,7 +50,6 @@ public class UsuarioController {
     }
 
     // Endpoint para criar um novo usuário
-    @Operation(summary = "Cria um novo usuario")
     @PostMapping
     public ResponseEntity<UsuarioDTO> create(@Valid @RequestBody Usuario usuario) {
         Usuario savedUsuario = usuarioService.create(usuario);
@@ -61,7 +57,6 @@ public class UsuarioController {
     }
 
     // Endpoint para atualizar um usuário existente
-    @Operation(summary = "Edita um usuario")
     @PatchMapping("/{id}")
     public ResponseEntity<UsuarioDTO> update(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
         Usuario updatedUsuario = usuarioService.update(id, usuarioDetails);
@@ -69,7 +64,6 @@ public class UsuarioController {
     }
 
     // Endpoint para deletar um usuário (soft delete)
-    @Operation(summary = "Soft Delete um usuario")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         usuarioService.delete(id);
@@ -77,7 +71,6 @@ public class UsuarioController {
     }
 
     // Endpoint para upload de imagem para um usuário específico
-    @Operation(summary = "Upload de imagem para um usuario")
     @PostMapping("/{usuarioId}/upload-image")
     public ResponseEntity<ImageDTO> uploadImage(@PathVariable Long usuarioId,
             @RequestParam("file") MultipartFile file) {
