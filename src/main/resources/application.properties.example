@@ -1,9 +1,9 @@
 spring.application.name=servicos_auto
 
 #DataBase
-spring.datasource.url=jdbc:postgresql://db-url/db-name
-spring.datasource.username=username
-spring.datasource.password=password
+spring.datasource.url=jdbc:jdbc:postgresql://database:5432/servicos_auto
+spring.datasource.username=servicos_auto
+spring.datasource.password=servicos_auto
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
@@ -20,3 +20,13 @@ imgur.refresh_token=refresh_token from imgurApi
 
 #swagger
 springdoc.swagger-ui.path=/docs
+
+# OpenTelemetry
+otel.exporter.otlp.endpoint=http://sentinel-otel:4317
+otel.service.name=servicos_auto
+otel.metrics.exporter=otlp
+otel.traces.exporter=otlp
+otel.logs.exporter=otlp
+
+# port
+server.port=8085
