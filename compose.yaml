@@ -1,0 +1,30 @@
+services:
+  database:
+    image: postgres:latest
+    container_name: servicos_auto_db
+    restart: always
+    ports:
+      - "5434:5432"  # Mapeia a porta 5434 do host para a 5434 do container
+    environment:
+      POSTGRES_USER: servicos_auto
+      POSTGRES_PASSWORD: servicos_auto
+      POSTGRES_DB: servicos_auto
+    # command: postgres -c "port=5434"  # Força o PostgreSQL a usar a porta 5434 dentro do container
+    networks:
+      - sentinel
+
+  servicos_auto:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: servicos_auto
+    ports:
+      - "8085:8085" 
+    depends_on:
+      - database
+    networks:
+      - sentinel
+
+networks:
+  sentinel:
+    external: true
